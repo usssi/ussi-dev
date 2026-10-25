@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Games & Tools — Joaquín Driussi</title>
+  <meta name="description" content="Game development and tools by Joaquín Driussi. Gear 6, SuperDungeon MegaCorp, Kalimba Ranch Keeper." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">ussi</a>
+      <ul class="nav__links">
+        <li><a href="video.html" class="nav__link">Video</a></li>
+        <li><a href="games.html" class="nav__link nav__link--active">Games</a></li>
+        <li><a href="mailto:" class="nav__link" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-label">Games & Tools</p>
+      <h1 id="page-title">Games & Tools</h1>
+      <p class="lead" id="page-subtitle"></p>
+    </div>
+  </section>
+
+  <main class="container">
+    <section id="projects-section">
+      <p class="section-label">Projects</p>
+      <div class="projects-list" id="projects-list"></div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="tools-section" id="tools-section">
+      <p class="section-label">Tools & AI</p>
+      <h2>Things I've built to remove friction</h2>
+      <p class="lead">Small tools that solve real problems. Each one ships with a README.</p>
+      <div class="tools-list" id="tools-list"></div>
+    </section>
+
+    <div class="divider"></div>
+
+    <div class="contact-strip">
+      <div class="contact-strip__text">
+        <h2>Want to work together?</h2>
+        <p class="lead">Open to gameplay, prototyping and tools roles — remote only.</p>
+      </div>
+      <div class="contact-strip__links" id="contact-links"></div>
+    </div>
+  </main>
+
+  <footer id="site-footer"><p></p></footer>
+
+  <script>
+    const BADGE_MAP = {
+      'Current project': 'badge--current',
+      'Shipped':         'badge--shipped',
+      'Thesis project':  'badge--thesis',
+    };
+
+    async function loadContent() {
+      const res = await fetch('content.json');
+      const data = await res.json();
+      const { hero, games_page } = data;
+
+      document.querySelector('#nav-contact').href = 'mailto:' + hero.email;
+      document.getElementById('page-title').textContent = games_page.title;
+      document.getElementById('page-subtitle').textContent = games_page.subtitle;
+
+      document.getElementById('projects-list').innerHTML = games_page.projects.map(p => {
+        const badgeClass = BADGE_MAP[p.type] || 'badge--thesis';
+        const hasLink = p.external_url && !p.external_url.startsWith('PEGAR') && p.external_url !== '';
+        return `
+          <article class="project-card" id="project-${p.id}">
+            <div class="project-card__meta">
+              <span class="badge ${badgeClass}">${p.type}</span>
+              <span class="project-card__period">${p.period}</span>
+            </div>
+            <h2 class="project-card__title">${p.title}</h2>
+            <p class="project-card__status">${p.status}</p>
+            <p class="project-card__desc">${p.description}</p>
+            <div class="tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+            ${hasLink ? `<div class="project-card__actions"><a href="${p.external_url}" target="_blank" rel="noopener" class="btn btn--outline" id="ext-${p.id}">${p.external_label} →</a></div>` : ''}
+          </article>
+        `;
+      }).join('');
+
+      document.getElementById('tools-list').innerHTML = games_page.tools.map(t => {
+        const hasGithub = t.github_url && !t.github_url.startsWith('PEGAR') && t.github_url !== '';
+        return `
+          <div class="tool-card" id="tool-${t.id}">
+            <div class="tool-card__body">
+              <div class="tool-card__title">${t.title}</div>
+              <p class="tool-card__desc">${t.description}</p>
+              <div class="tool-card__tech">${t.tech}</div>
+            </div>
+            ${hasGithub
+              ? `<a href="${t.github_url}" target="_blank" rel="noopener" class="btn btn--ghost">GitHub <span class="arrow">→</span></a>`
+              : `<span class="tool-coming-soon">README coming soon</span>`
+            }
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('contact-links').innerHTML = `
+        <a href="mailto:${hero.email}" class="btn btn--primary" id="contact-email">Email me</a>
+        <a href="${hero.github}" target="_blank" rel="noopener" class="btn btn--outline" id="contact-github">GitHub</a>
+        <a href="${hero.linkedin}" target="_blank" rel="noopener" class="btn btn--outline" id="contact-linkedin">LinkedIn</a>
+      `;
+
+      document.querySelector('#site-footer p').textContent = `© ${new Date().getFullYear()} ${hero.name} · ${hero.location}`;
+      document.title = `Games & Tools — ${hero.name}`;
+    }
+
+    loadContent().catch(e => console.error('content.json error:', e));
+  </script>
+</body>
+</html>

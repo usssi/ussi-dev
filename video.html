@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Video & Content — Joaquín Driussi</title>
+  <meta name="description" content="Short-form video production and content strategy by Joaquín Driussi. Case study: Lo-Fi Family Burgers." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Video reel player */
+    .reel-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+    .reel-card {
+      position: relative;
+      background: #111;
+    }
+    .reel-card:hover .reel-card__views { opacity: 1; }
+    .reel-card__ig-link {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      background: rgba(28,26,22,0.75);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.25rem 0.6rem;
+      border-radius: 100px;
+      backdrop-filter: blur(4px);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .reel-card__ig-link:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">ussi</a>
+      <ul class="nav__links">
+        <li><a href="video.html" class="nav__link nav__link--active">Video</a></li>
+        <li><a href="games.html" class="nav__link">Games</a></li>
+        <li><a href="mailto:" class="nav__link" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="section-label">Video & Content</p>
+      <h1 id="page-title">Video & Content</h1>
+      <p class="lead" id="page-subtitle"></p>
+    </div>
+  </section>
+
+  <main class="container">
+    <article class="case-study">
+      <div class="case-study__header">
+        <p class="case-study__client-label">Case Study</p>
+        <h2 class="case-study__client-name" id="cs-client"></h2>
+        <p class="case-study__period" id="cs-period"></p>
+      </div>
+      <div class="case-study__body">
+        <div class="case-study__text-block">
+          <h4>Context</h4>
+          <p id="cs-context"></p>
+        </div>
+        <div class="case-study__text-block">
+          <h4>What I do</h4>
+          <p id="cs-what"></p>
+        </div>
+
+        <div class="stats-grid" id="stats-grid"></div>
+        <p class="attribution-note" id="cs-attribution"></p>
+
+        <div class="reels-section">
+          <h3>Selected work</h3>
+          <div class="reels-grid" id="reels-grid"></div>
+        </div>
+      </div>
+    </article>
+
+    <section class="process-section">
+      <h2>How I work</h2>
+      <div class="process-steps" id="process-steps"></div>
+    </section>
+
+    <div class="divider"></div>
+    <div class="contact-strip">
+      <div class="contact-strip__text">
+        <h2>Let's make something.</h2>
+        <p class="lead">Open to remote video and content production roles.</p>
+      </div>
+      <div class="contact-strip__links" id="contact-links"></div>
+    </div>
+  </main>
+
+  <footer id="site-footer"><p></p></footer>
+
+  <script>
+    const EYE_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;opacity:0.85;flex-shrink:0;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+    const PLAY_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;opacity:0.3"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/></svg>`;
+
+    async function loadContent() {
+      const res = await fetch('content.json');
+      const data = await res.json();
+      const { hero, video_page } = data;
+      const cs = video_page.case_study;
+
+      document.querySelector('#nav-contact').href = 'mailto:' + hero.email;
+      document.getElementById('page-title').textContent = video_page.title;
+      document.getElementById('page-subtitle').textContent = video_page.subtitle;
+      document.getElementById('cs-client').textContent = cs.client;
+      document.getElementById('cs-period').textContent = cs.period;
+      document.getElementById('cs-context').textContent = cs.context;
+      document.getElementById('cs-what').textContent = cs.what_i_do;
+      document.getElementById('cs-attribution').textContent = cs.attribution_note;
+
+      // Stats
+      document.getElementById('stats-grid').innerHTML = cs.stats.map(s => `
+        <div class="stat-item">
+          <div class="stat-item__value">${s.value}</div>
+          <div class="stat-item__label">${s.label}</div>
+          ${s.note ? `<div class="stat-item__note">${s.note}</div>` : ''}
+        </div>
+      `).join('');
+
+      // Reels — MP4 with autoplay loop muted
+      document.getElementById('reels-grid').innerHTML = cs.reels.map((r, i) => {
+        const hasVideo = r.video_file && r.video_file !== '';
+        const hasIg = r.instagram_url && !r.instagram_url.startsWith('PEGAR');
+
+        const videoEl = hasVideo
+          ? `<video class="reel-video" autoplay loop muted playsinline preload="metadata"
+               title="${r.title}"
+               onclick="this.paused ? this.play() : this.pause()">
+               <source src="${r.video_file}" type="video/mp4" />
+             </video>`
+          : `<div class="reel-card__placeholder" style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,0.3);gap:0.75rem;">
+               ${PLAY_SVG}
+               <span style="font-size:0.8rem">Drop reel${i+1}.mp4 in videos/</span>
+             </div>`;
+
+        return `
+          <div class="reel-item" id="reel-item-${i}">
+            <div class="reel-card">
+              ${videoEl}
+              <div class="reel-card__views">${EYE_SVG}<span>${r.views}</span></div>
+              ${hasIg ? `<a href="${r.instagram_url}" target="_blank" rel="noopener" class="reel-card__ig-link">↗ Instagram</a>` : ''}
+            </div>
+            <div class="reel-info">
+              <div class="reel-info__title">${r.title}</div>
+              <p class="reel-info__highlight">${r.highlight}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Process
+      document.getElementById('process-steps').innerHTML = video_page.process.map(p => `
+        <div class="process-step">
+          <div class="process-step__number">${p.step}</div>
+          <div class="process-step__title">${p.title}</div>
+          <p class="process-step__desc">${p.desc}</p>
+        </div>
+      `).join('');
+
+      // Contact
+      document.getElementById('contact-links').innerHTML = `
+        <a href="mailto:${hero.email}" class="btn btn--primary" id="contact-email">Email me</a>
+        <a href="${hero.linkedin}" target="_blank" rel="noopener" class="btn btn--outline" id="contact-linkedin">LinkedIn</a>
+      `;
+
+      document.querySelector('#site-footer p').textContent = `© ${new Date().getFullYear()} ${hero.name} · ${hero.location}`;
+      document.title = `Video & Content — ${hero.name}`;
+    }
+
+    loadContent().catch(e => console.error('content.json error:', e));
+  </script>
+</body>
+</html>

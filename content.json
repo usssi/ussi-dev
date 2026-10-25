@@ -1,0 +1,203 @@
+{
+  "_instructions": "CMS de ussi.dev. Editá los valores y subí a GitHub. Para videos: poné el MP4 en la carpeta videos/ y referenciá como 'videos/reel1.mp4'. Para imágenes: carpeta images/.",
+  "site": {
+    "title": "Joaquín Driussi",
+    "description": "Short-Form Video Producer & Game Developer. Portfolio of Joaquín Driussi.",
+    "url": "https://ussi.dev"
+  },
+  "hero": {
+    "name": "Joaquín Driussi",
+    "tagline": "Short-Form Video Producer, Content Strategy & AI Workflows",
+    "subtagline": "I grow audiences and tell stories that move people.",
+    "location": "Mendoza, Argentina — remote",
+    "email": "driussijoaquin@gmail.com",
+    "linkedin": "https://linkedin.com/in/joaquin-driussi",
+    "github": "https://github.com/usssi",
+    "photo": "images/hero_portrait.webp"
+  },
+  "cards": [
+    {
+      "id": "video",
+      "title": "Video & Content",
+      "description": "Short-form video, content strategy, audience growth.",
+      "stat": "3,700 → 14,500 followers · 1.1M views/month",
+      "link": "video.html",
+      "cta": "See work"
+    },
+    {
+      "id": "games",
+      "title": "Games",
+      "description": "Indie game development, prototyping, Steam releases.",
+      "stat": "Gear 6 (Next Fest Feb 2027) · SuperDungeon MegaCorp",
+      "link": "games.html",
+      "cta": "See games"
+    },
+    {
+      "id": "tools",
+      "title": "Tools & AI",
+      "description": "Automation tools and AI workflows that remove friction.",
+      "stat": "Feedback audio tool: 1 day of analysis → a few hours",
+      "link": "games.html#tools",
+      "cta": "See tools"
+    }
+  ],
+  "video_page": {
+    "title": "Video & Content",
+    "subtitle": "I plan, direct, edit and publish vertical video end to end.",
+    "case_study": {
+      "client": "Lo-Fi Family Burgers",
+      "period": "Sep 2025 – present",
+      "context": "Inherited a stagnant Instagram account. Rebuilt strategy from scratch: audience definition, visual identity, tone, content pillars and competitor benchmarking.",
+      "what_i_do": "Run the full pipeline solo: concept, scripting, camera, direction, editing (DaVinci Resolve), subtitles, sound design, copy, scheduling and community management.",
+      "stats": [
+        {
+          "label": "Followers",
+          "value": "3,700 → 14,500",
+          "note": "organic, no paid ads"
+        },
+        {
+          "label": "Monthly views",
+          "value": "1.1M",
+          "note": "last 30 days"
+        },
+        {
+          "label": "Monthly viewers",
+          "value": "500K",
+          "note": ""
+        },
+        {
+          "label": "Top reel",
+          "value": "521K views",
+          "note": ""
+        },
+        {
+          "label": "Reels above 100K",
+          "value": "5+",
+          "note": ""
+        },
+        {
+          "label": "Google reviews",
+          "value": "120 → 180",
+          "note": "in one month"
+        }
+      ],
+      "attribution_note": "In the same months content went live, daily sales grew from ~30 to 100–150 burgers. Customers regularly cite Instagram when asked how they found the place.",
+      "reels": [
+        {
+          "video_file": "videos/reel1.mp4",
+          "instagram_url": "https://www.instagram.com/lofi_family/reel/DbO85zgMVRR/",
+          "views": "521K",
+          "title": "The burger smash challenge",
+          "highlight": "Trend hijacking: matched a viral audio format to native content, reaching a mass audience far outside the existing fanbase in a single post."
+        },
+        {
+          "video_file": "videos/reel2.mp4",
+          "instagram_url": "https://www.instagram.com/lofi_family/reel/DbEb9lYM5c1/",
+          "views": "202K",
+          "title": "1,000 Argentina chip bags",
+          "highlight": "Turning disaster into reach: 1,000 World Cup bags arrived a day late. Reframed the loss into self-deprecating comedy with a quick 1-second capture."
+        },
+        {
+          "video_file": "videos/reel3.mp4",
+          "instagram_url": "https://www.instagram.com/lofi_family/reel/DbJ0mWXu4ae/",
+          "views": "191K",
+          "title": "Macro burger craft",
+          "highlight": "High production on a budget: replicated a premium commercial look using low-cost lighting and tight macro angles. Craft over gear."
+        },
+        {
+          "video_file": "videos/reel4.mp4",
+          "instagram_url": "https://www.instagram.com/lofi_family/reel/DUwlVcEDHPF/",
+          "views": "161K",
+          "title": "Early-stage scarcity",
+          "highlight": "Authentic storytelling: captured a raw kitchen moment running low on prep. Framed real capacity limits as high demand, sparking the growth snowball."
+        }
+      ]
+    },
+    "process": [
+      {
+        "step": "01",
+        "title": "Strategy",
+        "desc": "Audience research, content pillars, competitor benchmarking, editorial calendar."
+      },
+      {
+        "step": "02",
+        "title": "Direction",
+        "desc": "Scripting, shot planning, on-set direction, lighting and camera."
+      },
+      {
+        "step": "03",
+        "title": "Editing",
+        "desc": "Cut, pacing, hooks, subtitles, sound design, color grading in DaVinci Resolve."
+      },
+      {
+        "step": "04",
+        "title": "Publish & Analyze",
+        "desc": "Scheduling, copies, community management, performance review."
+      }
+    ]
+  },
+  "games_page": {
+    "title": "Games & Tools",
+    "subtitle": "Game developer, studio founder, and builder of tools that make teams faster.",
+    "projects": [
+      {
+        "id": "gear6",
+        "title": "Gear 6",
+        "type": "Current project",
+        "period": "Feb 2026 – present",
+        "description": "PC incremental game for Steam. Leading a 6-person indie studio as Game Director: design, prototyping, audio, tools and pre-launch content.",
+        "status": "Demo at Steam Next Fest, Feb 22 – Mar 1, 2027",
+        "external_url": "PEGAR_URL_ITCHIO_GEAR6",
+        "external_label": "Play on itch.io",
+        "tags": [
+          "Unity",
+          "C#",
+          "Game Design",
+          "Prototyping"
+        ]
+      },
+      {
+        "id": "superdungeon",
+        "title": "SuperDungeon MegaCorp",
+        "type": "Shipped",
+        "period": "Jun 2022 – Jan 2024",
+        "description": "Designed and programmed core mechanics in Unreal Engine (C++ and Blueprints) on a 6-person team at Golden Leaf Games.",
+        "status": "Published on Steam",
+        "external_url": "PEGAR_URL_STEAM_SUPERDUNGEON",
+        "external_label": "View on Steam",
+        "tags": [
+          "Unreal Engine",
+          "C++",
+          "Blueprints",
+          "Steam"
+        ]
+      },
+      {
+        "id": "kalimba",
+        "title": "Kalimba Ranch Keeper",
+        "type": "Thesis project",
+        "period": "2024",
+        "description": "Mobile rhythm game with advanced audio implementation in Unreal Engine 5. Thesis project, Universidad de Mendoza.",
+        "status": "Grade: 10/10",
+        "external_url": "",
+        "external_label": "",
+        "tags": [
+          "UE5",
+          "Mobile",
+          "Audio",
+          "Rhythm game"
+        ]
+      }
+    ],
+    "tools": [
+      {
+        "id": "audio-transcriber",
+        "title": "Customer Feedback Audio Tool",
+        "description": "Transcribes and organizes customer feedback audios by question. Reduced a full day of manual analysis to a few hours.",
+        "tech": "Python",
+        "github_url": "",
+        "status": "available"
+      }
+    ]
+  }
+}

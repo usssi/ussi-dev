@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Joaquín Driussi — Video Producer & Game Developer</title>
+  <meta name="description" content="Portfolio of Joaquín Driussi — Short-Form Video Producer and Game Developer based in Mendoza, Argentina." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav" id="main-nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">ussi</a>
+      <ul class="nav__links">
+        <li><a href="video.html" class="nav__link" id="nav-video">Video</a></li>
+        <li><a href="games.html" class="nav__link" id="nav-games">Games</a></li>
+        <li><a href="mailto:" class="nav__link" id="nav-contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="container hero__container">
+      <div class="hero__content">
+        <h1 class="hero__name" id="hero-name">Joaquín Driussi</h1>
+        <p class="hero__tagline" id="hero-tagline"></p>
+        <p class="hero__subtext" id="hero-subtext"></p>
+        <p class="hero__meta" id="hero-meta"></p>
+        <div class="hero__ctas" id="hero-ctas"></div>
+      </div>
+      <div class="hero__media" id="hero-media"></div>
+    </div>
+    <div class="container">
+      <div class="hero__divider"></div>
+    </div>
+  </section>
+
+  <section class="cards-section" id="cards-section">
+    <div class="container">
+      <div class="cards-section__header">
+        <p class="section-label">Work</p>
+        <h2>What I do</h2>
+      </div>
+      <div class="cards-grid" id="cards-grid"></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="contact-strip" id="contact-strip">
+      <div class="contact-strip__text">
+        <h2>Let's work together.</h2>
+        <p class="lead">Open to remote roles and freelance production projects.</p>
+      </div>
+      <div class="contact-strip__links" id="contact-links"></div>
+    </div>
+  </section>
+
+  <footer id="site-footer"><p></p></footer>
+
+  <script>
+    // Minimal SVG icons — no emojis
+    const ICONS = {
+      video: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`,
+      games: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="11" x2="15" y2="11" stroke-width="3" stroke-linecap="round"/><line x1="18" y1="13" x2="18" y2="13" stroke-width="3" stroke-linecap="round"/><path d="M17.92 5H6.08C3.82 5 2 6.82 2 9.08v5.84C2 17.18 3.82 19 6.08 19h11.84C20.18 19 22 17.18 22 14.92V9.08C22 6.82 20.18 5 17.92 5z"/></svg>`,
+      tools: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+    };
+
+    // 3D tilt effect
+    function initTilt(cards) {
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
+        });
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = e.clientX - r.left;
+          const y = e.clientY - r.top;
+          const cx = r.width / 2;
+          const cy = r.height / 2;
+          const rotX = ((y - cy) / cy) * -10;
+          const rotY = ((x - cx) / cx) * 10;
+          card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(10px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transition = 'transform 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease';
+          card.style.transform = '';
+        });
+      });
+    }
+
+    async function loadContent() {
+      const res = await fetch('content.json');
+      const data = await res.json();
+      const { hero, cards, site } = data;
+
+      document.querySelector('#nav-contact').href = 'mailto:' + hero.email;
+      document.getElementById('hero-name').textContent = hero.name;
+      document.getElementById('hero-tagline').textContent = hero.tagline;
+      document.getElementById('hero-subtext').textContent = hero.subtagline;
+      document.getElementById('hero-meta').textContent = hero.location;
+      if (hero.photo && hero.photo.trim() !== '') {
+        const mediaEl = document.getElementById('hero-media');
+        mediaEl.classList.add('has-photo');
+        mediaEl.innerHTML = `
+          <div class="hero__photo-wrapper">
+            <img src="${hero.photo}" alt="${hero.name}" class="hero__photo" />
+          </div>
+        `;
+      }
+
+
+      document.getElementById('hero-ctas').innerHTML = `
+        <a href="video.html" class="btn btn--primary" id="cta-video">See video work</a>
+        <a href="games.html" class="btn btn--outline" id="cta-games">Games &amp; tools</a>
+        <a href="mailto:${hero.email}" class="btn btn--outline" id="cta-email" style="border-color:var(--border);color:var(--ink-muted)">Get in touch</a>
+      `;
+
+      const grid = document.getElementById('cards-grid');
+      grid.innerHTML = cards.map(c => `
+        <a href="${c.link}" class="card" id="card-${c.id}">
+          <div class="card__icon">${ICONS[c.id] || ''}</div>
+          <div class="card__title">${c.title}</div>
+          <p class="card__desc">${c.description}</p>
+          <div class="card__stat">${c.stat}</div>
+          <div class="card__cta">
+            <span class="btn btn--ghost">${c.cta} <span class="arrow">→</span></span>
+          </div>
+        </a>
+      `).join('');
+
+      initTilt(grid.querySelectorAll('.card'));
+
+      document.getElementById('contact-links').innerHTML = `
+        <a href="mailto:${hero.email}" class="btn btn--primary" id="strip-email">Email me</a>
+        <a href="${hero.linkedin}" target="_blank" rel="noopener" class="btn btn--outline" id="strip-linkedin">LinkedIn</a>
+        <a href="${hero.github}" target="_blank" rel="noopener" class="btn btn--outline" id="strip-github" style="border-color:var(--border);color:var(--ink-muted)">GitHub</a>
+      `;
+
+      document.querySelector('#site-footer p').textContent = `© ${new Date().getFullYear()} ${hero.name} · ${hero.location}`;
+      document.title = `${hero.name} — Video Producer & Game Developer`;
+    }
+
+    loadContent().catch(e => console.error('content.json error:', e));
+  </script>
+</body>
+</html>
