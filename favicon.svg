@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#556949"/>
+      <stop offset="100%" stop-color="#3A4833"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Squircle -->
+  <rect x="10" y="10" width="492" height="492" rx="110" fill="url(#bgGrad)"/>
+  <!-- Subtle Inner Border -->
+  <rect x="18" y="18" width="476" height="476" rx="102" fill="none" stroke="#FAF7F2" stroke-width="6" stroke-opacity="0.15"/>
+  <!-- Elegant Serif Lettermark 'u' matching ussi brand -->
+  <text x="256" y="352" text-anchor="middle" font-family="'Playfair Display', 'Didot', 'Bodoni MT', Georgia, serif" font-size="348" font-weight="700" fill="#FAF7F2">u</text>
+</svg>
