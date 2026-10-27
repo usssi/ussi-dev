@@ -147,7 +147,7 @@
         "period": "Feb 2026 – present",
         "description": "PC incremental game for Steam. Leading a 6-person indie studio as Game Director: design, prototyping, audio, tools and pre-launch content.",
         "status": "Demo at Steam Next Fest, Feb 22 – Mar 1, 2027",
-        "external_url": "PEGAR_URL_ITCHIO_GEAR6",
+        "external_url": "https://gear-6.itch.io/",
         "external_label": "Play on itch.io",
         "tags": [
           "Unity",
@@ -163,7 +163,7 @@
         "period": "Jun 2022 – Jan 2024",
         "description": "Designed and programmed core mechanics in Unreal Engine (C++ and Blueprints) on a 6-person team at Golden Leaf Games.",
         "status": "Published on Steam",
-        "external_url": "PEGAR_URL_STEAM_SUPERDUNGEON",
+        "external_url": "https://store.steampowered.com/app/1851010/SuperDungeon_MegaCorp/",
         "external_label": "View on Steam",
         "tags": [
           "Unreal Engine",
